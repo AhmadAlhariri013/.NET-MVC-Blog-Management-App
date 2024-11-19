@@ -1,3 +1,6 @@
+using Blog_Management_App.Models.Context;
+using Microsoft.EntityFrameworkCore;
+
 namespace Blog_Management_App;
 
 public class Program
@@ -8,6 +11,10 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
+
+        // Register BlogManagementDBContext
+        builder.Services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("constr")));
 
         var app = builder.Build();
 
@@ -28,7 +35,7 @@ public class Program
 
         app.MapControllerRoute(
             name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+            pattern: "{controller=BlogPost}/{action=Index}/{id?}");
 
         app.Run();
     }
