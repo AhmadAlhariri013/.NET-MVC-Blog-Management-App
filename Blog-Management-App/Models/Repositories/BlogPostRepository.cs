@@ -19,7 +19,7 @@ public class BlogPostRepository:IBlogPostRepository
     public async Task<BlogPostsIndexViewModel> GetBlogPosts(string? searchTitle, int? searchCategoryId, int? pageNumber)
     {
         // 1. Fetch PageSize from appsettings.json, default to 10 if not set
-        int pageSize = _configuration.GetValue<int>("Pagination");
+        int pageSize = _configuration.GetValue<int?>("Pagination:PageSize") ?? 10;
 
         // 2. Initialize query
         var postsQuery = _context.BlogPosts

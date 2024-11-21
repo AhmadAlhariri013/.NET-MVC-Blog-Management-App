@@ -9,7 +9,7 @@ namespace Blog_Management_App.ViewModels;
  */
 public class BlogPostsIndexViewModel
 {
-    public List<BlogPost?> BlogPosts { get; set; }
+    public List<BlogPost>? BlogPosts { get; set; }
     
     // Pagination Properties
     public int? CurrentPage { get; set; }
