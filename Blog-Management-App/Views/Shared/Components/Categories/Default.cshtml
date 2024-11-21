@@ -1,0 +1,15 @@
+@* This View renders the HTML for displaying the list of categories fetched by the CategoriesViewComponent.  *@
+@* That means it defines the visual representation of the categories, ensuring they are displayed correctly within the application’s layout.  *@
+@* Integrates seamlessly with the server-side CategoriesViewComponent to provide dynamic and interactive navigation elements. *@
+
+ @* Views/Shared/Components/Categories/Default.cshtml  *@
+
+ @model IEnumerable<Category>
+ @foreach (var category in Model)
+ {
+     <li class="nav-item">
+         <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "PostsByCategory" && ViewContext.RouteData.Values["id"].ToString() == category.Id.ToString() ? "active" : "")" href="@Url.Action("PostsByCategory", "BlogPosts", new { id = category.Id })">
+             @category.Name
+         </a>
+     </li>
+ }

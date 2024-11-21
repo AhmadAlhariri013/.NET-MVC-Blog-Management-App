@@ -1,4 +1,5 @@
 using Blog_Management_App.Models.Context;
+using Blog_Management_App.Models.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Blog_Management_App;
@@ -15,7 +16,13 @@ public class Program
         // Register BlogManagementDBContext
         builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("constr")));
-
+        
+        // Register Repository Services
+        builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
+        builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+        builder.Services.AddScoped<IAuthorsRepository, AuthorsRepository>();
+        builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+        
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -35,7 +42,7 @@ public class Program
 
         app.MapControllerRoute(
             name: "default",
-            pattern: "{controller=BlogPost}/{action=Index}/{id?}");
+            pattern: "{controller=BlogPosts}/{action=Index}/{id?}");
 
         app.Run();
     }
